@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #FFFFFF;
+    --foreground: #000000;
+    --card: #FFFFFF;
+    --card-foreground: #000000;
+    --border: #E5E5E5;
+    --border-subtle: #F0F0EE;
+    --muted: #F5F5F3;
+    --muted-foreground: #555555;
+    --accent: #000000;
+    --accent-foreground: #FFFFFF;
+  }
+
+  .dark {
+    --background: #000000;
+    --foreground: #FFFFFF;
+    --card: #0A0A0A;
+    --card-foreground: #FFFFFF;
+    --border: #242424;
+    --border-subtle: #181818;
+    --muted: #111111;
+    --muted-foreground: #888888;
+    --accent: #FFFFFF;
+    --accent-foreground: #000000;
+  }
+
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-feature-settings: "rlig" 1, "calt" 1;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--foreground);
+    color: var(--background);
+  }
+}
+
+/* Restrained architectural scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: #777777;
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Editorial line clamp & typography accents */
+.editorial-title {
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+
+.editorial-tag {
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.thin-rule {
+  border-top: 1px solid var(--border);
+}
+
+.grid-paper-pattern {
+  background-image: linear-gradient(to right, var(--border-subtle) 1px, transparent 1px),
+                    linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
