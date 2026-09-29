@@ -19,10 +19,9 @@ import { trackEvent } from "@/lib/analytics";
 
 interface NavbarProps {
   onOpenCommandMenu?: () => void;
-  onOpenDesignImport?: () => void;
 }
 
-export function Navbar({ onOpenCommandMenu, onOpenDesignImport }: NavbarProps) {
+export function Navbar({ onOpenCommandMenu }: NavbarProps) {
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
@@ -108,16 +107,7 @@ export function Navbar({ onOpenCommandMenu, onOpenDesignImport }: NavbarProps) {
 
         {/* Right: Actions (Theme Toggle, Command, Resume, Contact) */}
         <div className="hidden sm:flex items-center gap-3">
-          {/* Quick Design Import button */}
-          {onOpenDesignImport && (
-            <button
-              onClick={onOpenDesignImport}
-              className="text-[11px] uppercase tracking-wider px-2.5 py-1.5 border border-dashed border-border hover:border-foreground text-muted-foreground hover:text-foreground transition-colors hidden xl:inline-flex items-center gap-1.5"
-              title="Start with your design (Import DESIGN.md or GitHub repo)"
-            >
-              <span>✦</span> Design Import
-            </button>
-          )}
+
 
           {/* Command Palette Trigger */}
           {onOpenCommandMenu && (
@@ -242,18 +232,7 @@ export function Navbar({ onOpenCommandMenu, onOpenDesignImport }: NavbarProps) {
               <ArrowUpRight className="w-4 h-4 opacity-50" />
             </a>
 
-            {onOpenDesignImport && (
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenDesignImport();
-                }}
-                className="text-left pb-2 border-b border-border/40 flex items-center justify-between text-muted-foreground"
-              >
-                <span>08 — Start with your design</span>
-                <span>✦</span>
-              </button>
-            )}
+
 
             <div className="pt-4 flex flex-col gap-3">
               <Link

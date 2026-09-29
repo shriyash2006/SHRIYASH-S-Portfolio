@@ -23,7 +23,6 @@ import { trackEvent } from "@/lib/analytics";
 interface CommandMenuProps {
   isOpen: boolean;
   onClose: () => void;
-  onOpenDesignImport?: () => void;
 }
 
 interface CommandItem {
@@ -38,7 +37,6 @@ interface CommandItem {
 export function CommandMenu({
   isOpen,
   onClose,
-  onOpenDesignImport,
 }: CommandMenuProps) {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
@@ -88,15 +86,7 @@ export function CommandMenu({
       icon: Mail,
       action: () => router.push("/contact"),
     },
-    {
-      id: "design-import",
-      name: "Start with your design (Import DESIGN.md)",
-      category: "Actions",
-      icon: Sparkles,
-      action: () => {
-        if (onOpenDesignImport) onOpenDesignImport();
-      },
-    },
+
     {
       id: "theme",
       name: `Switch to ${theme === "dark" ? "Light" : "Dark"} Mode`,

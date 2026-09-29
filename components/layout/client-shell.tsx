@@ -3,11 +3,11 @@
 import * as React from "react";
 import { Navbar } from "@/components/navbar/navbar";
 import { CommandMenu } from "@/components/command-menu/command-menu";
-import { DesignImportModal } from "@/components/design-import/design-import-modal";
+
 
 export function ClientShell({ children }: { children: React.ReactNode }) {
   const [commandMenuOpen, setCommandMenuOpen] = React.useState(false);
-  const [designImportOpen, setDesignImportOpen] = React.useState(false);
+  
 
   // Global ⌘K keyboard shortcut
   React.useEffect(() => {
@@ -23,10 +23,7 @@ export function ClientShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="relative min-h-screen flex flex-col">
-      <Navbar
-        onOpenCommandMenu={() => setCommandMenuOpen(true)}
-        onOpenDesignImport={() => setDesignImportOpen(true)}
-      />
+      <Navbar onOpenCommandMenu={() => setCommandMenuOpen(true)} />
 
       <main id="main-content" className="flex-1">
         {children}
@@ -35,15 +32,6 @@ export function ClientShell({ children }: { children: React.ReactNode }) {
       <CommandMenu
         isOpen={commandMenuOpen}
         onClose={() => setCommandMenuOpen(false)}
-        onOpenDesignImport={() => {
-          setCommandMenuOpen(false);
-          setDesignImportOpen(true);
-        }}
-      />
-
-      <DesignImportModal
-        isOpen={designImportOpen}
-        onClose={() => setDesignImportOpen(false)}
       />
     </div>
   );
