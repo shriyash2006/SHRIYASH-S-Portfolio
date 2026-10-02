@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import ChatWidget from "@/components/chatbot/ChatWidget";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
@@ -61,6 +62,7 @@ export default function RootLayout({
 
           <ClientShell>{children}</ClientShell>
         </ThemeProvider>
+        <ChatWidget />
       </body>
     </html>
   );
