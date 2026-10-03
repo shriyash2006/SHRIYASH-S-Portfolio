@@ -50,15 +50,36 @@ export async function* streamChat(messages: ChatMessage[]): AsyncGenerator<ChatR
     body.systemInstruction = systemInstruction;
   }
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
+  // Retry logic for transient errors (503 UNAVAILABLE, 429 rate limit)
+  const MAX_RETRIES = 3;
+  let response: Response | null = null;
 
-  if (!response.ok) {
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+    response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+
+    if (response.ok) {
+      break; // Success — proceed to streaming
+    }
+
+    // Retry only on transient server errors
+    if ((response.status === 503 || response.status === 429) && attempt < MAX_RETRIES - 1) {
+      // Exponential backoff: 1s, 2s, 4s
+      const delay = Math.pow(2, attempt) * 1000;
+      await new Promise((resolve) => setTimeout(resolve, delay));
+      continue;
+    }
+
+    // Non-retryable error or final attempt exhausted
     const text = await response.text();
     throw new Error(`Gemini API error ${response.status}: ${text}`);
+  }
+
+  if (!response || !response.ok) {
+    throw new Error('Gemini API failed after retries.');
   }
 
   const reader = response.body?.getReader();

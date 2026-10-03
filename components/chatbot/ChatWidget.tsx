@@ -76,20 +76,25 @@ export default function ChatWidget() {
         if (value) {
           const chunk = decoder.decode(value, { stream: true });
           assistantContent += chunk;
-          // Update last assistant message
+          // Update last assistant message (the placeholder we just pushed)
           setMessages((prev) => {
             const updated = [...prev];
-            const lastIdx = updated.findIndex((m) => m.role === "assistant" && m.content === "");
-            // If we already have a placeholder, replace its content
-            if (lastIdx !== -1) {
-              updated[lastIdx] = { role: "assistant", content: assistantContent };
-            } else {
-              // Fallback – push a new message
-              updated.push({ role: "assistant", content: assistantContent });
-            }
+            updated[updated.length - 1] = { role: "assistant", content: assistantContent };
             return updated;
           });
         }
+      }
+
+      // If the streamed response contains an error marker, surface it
+      if (assistantContent.includes("[ERROR]")) {
+        setMessages((prev) => {
+          const updated = [...prev];
+          updated[updated.length - 1] = {
+            role: "assistant",
+            content: "Sorry, the assistant is temporarily unavailable. Please try again in a moment.",
+          };
+          return updated;
+        });
       }
     } catch (e: any) {
       setError(e.message ?? "An error occurred while contacting the assistant.");
