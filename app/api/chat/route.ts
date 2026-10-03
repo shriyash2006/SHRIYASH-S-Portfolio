@@ -20,8 +20,7 @@ function getClientIp(req: NextRequest): string {
   if (forwarded) {
     return forwarded.split(',')[0].trim();
   }
-  // Fallback to remote address (not always reliable in Vercel)
-  return req.ip ?? 'unknown';
+  return 'unknown';
 }
 
 function enforceRateLimit(ip: string): { allowed: boolean; retryAfter?: number } {
