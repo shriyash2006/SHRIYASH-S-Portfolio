@@ -4,7 +4,7 @@ import { skillCategories } from "@/content/skills";
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="py-20 md:py-28 border-b border-border">
+    <section id="skills" className="py-20 md:py-28 border-b border-border" suppressHydrationWarning>
       <div className="max-w-container mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
         <SectionHeading
           number="06"

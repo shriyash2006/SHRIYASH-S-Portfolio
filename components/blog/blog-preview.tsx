@@ -7,7 +7,7 @@ import { formatDate } from "@/lib/utils";
 
 export function BlogPreview() {
   return (
-    <section id="blog" className="py-20 md:py-28 border-b border-border">
+    <section id="blog" className="py-20 md:py-28 border-b border-border" suppressHydrationWarning>
       <div className="max-w-container mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
         <SectionHeading
           number="07"

@@ -6,7 +6,7 @@ import { siteConfig } from "@/lib/site-config";
 
 export function AboutPreview() {
   return (
-    <section id="about" className="py-20 md:py-28 border-b border-border">
+    <section id="about" className="py-20 md:py-28 border-b border-border" suppressHydrationWarning>
       <div className="max-w-container mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
         <SectionHeading
           number="01"

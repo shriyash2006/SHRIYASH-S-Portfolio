@@ -3,7 +3,7 @@ import { leadershipItems } from "@/content/leadership";
 
 export function LeadershipSection() {
   return (
-    <section id="leadership" className="py-20 md:py-28 border-b border-border bg-foreground/[0.01]">
+    <section id="leadership" className="py-20 md:py-28 border-b border-border bg-foreground/[0.01]" suppressHydrationWarning>
       <div className="max-w-container mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
         <SectionHeading
           number="05"

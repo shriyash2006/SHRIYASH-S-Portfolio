@@ -16,7 +16,15 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, layout = "featured" }: ProjectCardProps) {
   return (
-    <article className="group border border-border bg-card hover:border-foreground/80 transition-colors duration-250 flex flex-col justify-between overflow-hidden">
+    <article
+      className="group spotlight-card border border-border bg-card hover:border-foreground/80 transition-colors duration-250 flex flex-col justify-between overflow-hidden"
+      data-reveal
+      onPointerMove={(event) => {
+        const bounds = event.currentTarget.getBoundingClientRect();
+        event.currentTarget.style.setProperty("--spotlight-x", `${event.clientX - bounds.left}px`);
+        event.currentTarget.style.setProperty("--spotlight-y", `${event.clientY - bounds.top}px`);
+      }}
+    >
       {/* Card Header: Project Number, Category, Year */}
       <div className="p-6 pb-4 flex items-center justify-between border-b border-border/80 text-xs font-mono">
         <div className="flex items-center gap-2">
@@ -33,6 +41,7 @@ export function ProjectCard({ project, layout = "featured" }: ProjectCardProps) 
       {/* Media Showcase: Image with 1.03-1.06 hover scale */}
       <Link
         href={`/projects/${project.slug}`}
+        data-cursor="view"
         onClick={() => trackEvent({ name: "project_open", slug: project.slug })}
         className="relative block w-full aspect-[16/9] overflow-hidden bg-brand-950 border-b border-border group-hover:opacity-95 transition-opacity"
         aria-label={`View case study: ${project.title}`}

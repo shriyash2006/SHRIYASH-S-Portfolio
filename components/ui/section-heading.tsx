@@ -22,7 +22,7 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   if (align === "split") {
     return (
-      <div className={cn("mb-12 md:mb-16", className)}>
+      <div className={cn("mb-12 md:mb-16", className)} data-reveal>
         <div className="flex items-center justify-between gap-4 pb-4 border-b border-border">
           <div className="flex items-center gap-3">
             {number && (
@@ -49,7 +49,7 @@ export function SectionHeading({
   }
 
   return (
-    <div className={cn("mb-12 md:mb-16", className)}>
+    <div className={cn("mb-12 md:mb-16", className)} data-reveal>
       <div className="flex items-center gap-3 pb-3 border-b border-border/80">
         {number && (
           <span className="font-mono text-xs text-muted-foreground tracking-wider">

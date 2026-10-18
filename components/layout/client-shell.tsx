@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Navbar } from "@/components/navbar/navbar";
 import { CommandMenu } from "@/components/command-menu/command-menu";
+import { MotionLayer } from "@/components/motion/motion-layer";
 
 
 export function ClientShell({ children }: { children: React.ReactNode }) {
@@ -23,9 +24,10 @@ export function ClientShell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="relative min-h-screen flex flex-col">
+      <MotionLayer />
       <Navbar onOpenCommandMenu={() => setCommandMenuOpen(true)} />
 
-      <main id="main-content" className="flex-1">
+      <main id="main-content" className="relative z-[1] flex-1">
         {children}
       </main>
 

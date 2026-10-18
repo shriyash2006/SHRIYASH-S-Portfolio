@@ -6,7 +6,7 @@ import { experiences } from "@/content/experience";
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="py-20 md:py-28 border-b border-border">
+    <section id="experience" className="py-20 md:py-28 border-b border-border" suppressHydrationWarning>
       <div className="max-w-container mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
         <SectionHeading
           number="04"
