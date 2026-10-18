@@ -13,10 +13,26 @@ import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
 const contactFormSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Please provide a valid email address." }),
-  subject: z.string().min(3, { message: "Subject must be at least 3 characters." }),
-  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
+  name: z
+    .string()
+    .trim()
+    .min(2, { message: "Name must be at least 2 characters." })
+    .max(100, { message: "Name must be 100 characters or fewer." }),
+  email: z
+    .string()
+    .trim()
+    .email({ message: "Please provide a valid email address." })
+    .max(254, { message: "Email must be 254 characters or fewer." }),
+  subject: z
+    .string()
+    .trim()
+    .min(3, { message: "Subject must be at least 3 characters." })
+    .max(200, { message: "Subject must be 200 characters or fewer." }),
+  message: z
+    .string()
+    .trim()
+    .min(10, { message: "Message must be at least 10 characters." })
+    .max(5000, { message: "Message must be 5,000 characters or fewer." }),
 });
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
