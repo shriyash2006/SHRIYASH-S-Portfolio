@@ -9,7 +9,7 @@ import { trackEvent } from "@/lib/analytics";
 
 export function Hero() {
   return (
-    <section className="relative min-h-[calc(100vh-5rem)] flex flex-col justify-between pt-8 sm:pt-12 pb-12 border-b border-border">
+    <section className="relative min-h-[calc(100vh-5rem)] flex flex-col justify-between pt-8 sm:pt-12 pb-12 border-b border-border" suppressHydrationWarning>
       {/* Background architectural corner coordinates */}
       <div className="absolute top-6 right-6 font-mono text-[10px] text-muted-foreground uppercase tracking-widest hidden lg:block select-none">
         LOC: 23.07°N 76.85°E // VIT BHOPAL

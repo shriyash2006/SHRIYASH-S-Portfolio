@@ -8,7 +8,7 @@ export function PortfolioSection() {
   const featuredProjects = projects.filter((p) => p.featured);
 
   return (
-    <section id="portfolio" className="py-20 md:py-28 border-b border-border">
+    <section id="portfolio" className="py-20 md:py-28 border-b border-border" suppressHydrationWarning>
       <div className="max-w-container mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
         <SectionHeading
           number="02"
