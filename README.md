@@ -23,7 +23,7 @@ Engineered with Next.js 15 (App Router), TypeScript, Tailwind CSS, and strict mo
 - **Animations & Interactivity**: [Framer Motion](https://www.framer.com/motion/) & Lucide React
 - **Forms & Validation**: [React Hook Form](https://react-hook-form.com/) + [Zod](https://zod.dev/)
 - **Theme System**: [next-themes](https://github.com/pacocoursey/next-themes) (Persisted Dark & Light mode)
-- **Email (Optional)**: [Resend](https://resend.com/) API Integration
+- **Email**: [Resend](https://resend.com/) API integration
 
 ---
 
@@ -31,7 +31,7 @@ Engineered with Next.js 15 (App Router), TypeScript, Tailwind CSS, and strict mo
 
 ```bash
 ├── app/
-│   ├── api/contact/route.ts       # Contact transmission endpoint (Zod + Resend)
+│   ├── api/contact/route.ts       # Contact transmission endpoint (Zod + Nodemailer)
 │   ├── about/page.tsx             # Dossier, academic background & verified honours
 │   ├── blog/                      # Technical writing index
 │   │   └── [slug]/page.tsx        # Individual engineering case study view
@@ -111,17 +111,28 @@ Engineered with Next.js 15 (App Router), TypeScript, Tailwind CSS, and strict mo
    npm install
    ```
 
-3. **Configure environment variables (optional)**:
+   Use Node.js `20.19.0` (the version is pinned in `.nvmrc`).
+
+3. **Configure environment variables**:
    ```bash
    cp .env.example .env.local
    ```
-   Add your `RESEND_API_KEY` if you wish to receive form submissions via email. If omitted, submissions will be logged safely in development without breaking the application.
+   Set `RESEND_API_KEY` and `CONTACT_EMAIL` in `.env.local`. See [RESEND_SETUP.md](./RESEND_SETUP.md) for the Resend setup steps.
 
 4. **Launch development server**:
    ```bash
    npm run dev
    ```
    Open [http://localhost:3000](http://localhost:3000) to view the portfolio.
+
+### Run with Docker
+
+```bash
+docker build -t shriyash-portfolio .
+docker run --rm -p 3000:3000 --env-file .env.local shriyash-portfolio
+```
+
+The `.dockerignore` keeps local credentials and development artifacts out of the image.
 
 ---
 
@@ -130,11 +141,17 @@ Engineered with Next.js 15 (App Router), TypeScript, Tailwind CSS, and strict mo
 Run all verification scripts before pushing or deploying:
 
 ```bash
-# TypeScript type check
-npm run typecheck
+# Offline checks (typecheck + lint)
+npm test
 
 # Production build test
 npm run build
+
+# Verify the Resend API key without sending an email
+npm run resend:verify
+
+# Send one test email through Resend
+npm run email:test
 ```
 
 ---
@@ -150,7 +167,7 @@ This repository is optimized for zero-configuration deployment on **Vercel**:
    git push origin main
    ```
 2. Connect your GitHub repository to [Vercel](https://vercel.com).
-3. Set the optional environment variables (`RESEND_API_KEY`, `CONTACT_EMAIL`).
+3. Set `RESEND_API_KEY`, `CONTACT_EMAIL`, and (for a verified domain) `RESEND_FROM_EMAIL` in the hosting dashboard.
 4. Click **Deploy**.
 
 ---
